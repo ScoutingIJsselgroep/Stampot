@@ -1,0 +1,484 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	 background: url('../img/curlycale.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	font-size: 15px;
+	
+	color: #ffffff;
+	cursor: default;
+	
+	height: 100%;
+}
+* {
+	font: 1.0em/1.4em Verdana, Geneva, Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.clear {
+	clear: both;
+}
+a {
+	color: #000000;
+}
+
+
+.total>div{
+	background-color: rgba(0,0,0,0.6);
+}
+.logout {
+	position: absolute;
+	display: block;
+	left: 0;
+	top: 0;
+	width: 20px;
+	height: 20px;
+	background: url(../img/lock.png) 4px 4px no-repeat;
+	text-indent: -99999px;
+	z-index: 100;
+	cursor: pointer;
+}
+.sync {
+	position: absolute;
+	display: block;
+	left: 20px;
+	top: 0;
+	width: 20px;
+	height: 20px;
+	background: url(../img/sync.png) 4px 4px no-repeat;
+	text-indent: -99999px;
+	z-index: 100;
+	cursor: pointer;
+}
+.floater {
+	position: relative;
+	float: left;
+	height: 50%;
+	margin-bottom: -267px;
+	width: 1px;
+}
+.total {
+	clear: left;
+	height:  563px;
+	width: 1350px;
+	margin: 0 auto;
+	position: relative;
+}
+.floater_login {
+	margin-bottom: -59px;
+}
+.total_login {
+	height: 119px;
+	width: 210px;
+}
+.total_login form {
+	display: block;
+	position: relative;
+	height: 119px;
+	width: 210px;
+	background: #dddddd;
+	color: #000000;
+}
+.total_login img {
+	vertical-align: text-bottom;
+}
+
+.total_login .title {
+	height: 21px;
+	line-height: 21px;
+	position: absolute;
+	display: block;
+	width: 200px;
+	text-align: center;
+	left: 5px;
+	top: 5px;
+}
+.total_login input {
+	height: 21px;
+	line-height: 21px;
+	border: none;
+	background: #eeeeee;
+	
+	position: absolute;
+	display: block;
+	width: 200px;
+	
+	left: 5px;
+}
+.total_login input.user {
+	top: 36px;
+}
+.total_login input.pass {
+	top: 62px;
+}
+.total_login input.submit {
+	background: #eeeeee url(../img/key.png) 171px 3px no-repeat;
+	top: 93px;
+	width: 200px;
+	padding: 0 20px 0 0;
+	cursor: pointer;
+}
+.total_login input.submit:hover {
+	background: #eeeeee url(../img/key.png) 169px 3px no-repeat;
+}
+
+.users,
+.products,
+.status {
+	width: 450px;
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	
+	color: #000000;
+}
+
+.users .list,
+.products .list {
+	height: 400px;
+	overflow: hidden;
+}
+.users .user,
+.products .product {
+	height: 60px;
+	width: 433px;
+	margin: 5px 5px 0 5px;
+	background: #dddddd;
+	position: relative;
+	overflow: hidden;
+}
+.users .user {
+	cursor: pointer;
+}
+.users .user.first,
+.products .product.first {
+	margin: 0 5px 0 5px;
+}
+.users .user img {
+	position: absolute;
+	left: 5px;
+	top: 5px;
+}
+.users .user .name {
+	position: absolute;
+	left: 60px;
+	top: 5px;
+}
+.users .user .saldo {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+}
+.users .user .saldo.orange {
+	color: #FF5900;
+}
+.users .user .saldo.red {
+	color: #ED0000;
+}
+.users .user .pin {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	width: 16px;
+	height: 16px;
+	background: url(../img/bullet_gray.png) center center no-repeat;
+}
+.users .user .pin.pinned {
+	background: url(../img/bullet_green.png) center center no-repeat;
+}
+
+.users .user.add {
+	background: #65A1F0;
+	margin: 17px 5px 5px 5px;
+}
+
+.users .search {
+	background: #65A1F0;
+	margin: 5px 5px 17px 5px;
+	height: 30px;
+	width: 433px;
+	position: relative;
+}
+.users .search input {
+	background: transparent;
+	border: none;
+	color: #ffffff;
+	height: 30px;
+	line-height: 30px;
+	position: absolute;
+	left: 5px;
+	top: 0;
+	width: 400px;
+}
+.users .search img {
+	position: absolute;
+	top: 7px;
+	right: 7px;
+	cursor: pointer;
+}
+
+.products .product img {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
+.products .product .name {
+	position: absolute;
+	top: 5px;
+	left: 60px;
+}
+.products .product .price {
+	position: absolute;
+	bottom: 5px;
+	right: 160px;
+	height: 18px;
+	line-height: 18px;
+}
+.products .product .product_count {
+	position: absolute;
+	bottom: 5px;
+	right: 96px;
+	width: 40px;
+	height: 18px;
+	line-height: 18px;
+	border: none;
+	background: #eeeeee;
+}
+.products .product .decrease {
+	position: absolute;
+	bottom: 6px;
+	right: 96px;
+	height: 6px;
+	width: 16px;
+	background: url(../img/input_arrows.png) center bottom no-repeat;
+	cursor: pointer;
+}
+.products .product .increase {
+	position: absolute;
+	bottom: 13px;
+	right: 96px;
+	height: 6px;
+	width: 16px;
+	background: url(../img/input_arrows.png) center top no-repeat;
+	cursor: pointer;
+}
+.products .product .pay {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	height: 18px;
+	line-height: 18px;
+	width: 65px;
+	text-align: right;
+	padding: 0 21px 0 0;
+	background: url(../img/pay.png) right bottom no-repeat;
+	cursor: pointer;
+}
+.products .product .pay * {
+	height: 18px;
+	line-height: 18px;
+}
+.products .search {
+	background: #F78888;
+	margin: 5px 5px 17px 5px;
+	height: 30px;
+	width: 433px;
+	position: relative;
+}
+.products .search input {
+	background: transparent;
+	border: none;
+	color: #ffffff;
+	height: 30px;
+	line-height: 30px;
+	position: absolute;
+	left: 5px;
+	top: 0;
+	width: 400px;
+}
+.products .search img {
+	position: absolute;
+	top: 7px;
+	right: 7px;
+	cursor: pointer;
+}
+
+.products .pay_free {
+	background: #F78888;
+	margin: 17px 5px 5px 5px;
+	height: 60px;
+	width: 433px;
+	position: relative;
+}
+
+.status .title {
+	margin: 5px 5px 17px 5px;
+	height: 30px;
+	line-height: 30px;
+	width: 423px;
+	padding: 0 5px;
+	position: relative;
+	color: #637F5E;
+	background: #99F799;
+}
+
+.status .user_details {
+	margin: 5px 5px 17px 5px;
+	background: #dddddd;
+	
+	width: 433px;
+	height: 83px;
+	position: relative;
+}
+.status .user_details #name_input {
+	display: block;
+	background: transparent;
+	border: none;
+	
+	width: 368px;
+	height: 21px;
+	line-height: 21px;
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
+.status .user_details #image_holder {
+	display: block;
+	
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+.status .user_details #image_edit,
+.status .user_details #image_delete {
+	display: block;
+	
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	top: 43px;
+	right: 43px;
+	cursor: pointer;
+}
+.status .user_details .save {
+	display: block;
+	
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	cursor: pointer;
+}
+.status .user_details .label_saldo {
+	display: block;
+	
+	width: 120px;
+	height: 21px;
+	position: absolute;
+	top: 31px;
+	left: 5px;
+}
+.status .user_details .value_saldo {
+	display: block;
+	
+	width: 120px;
+	height: 21px;
+	position: absolute;
+	top: 31px;
+	left: 130px;
+}
+.status .user_details .label_saldo_minimal {
+	display: block;
+	
+	width: 120px;
+	height: 21px;
+	position: absolute;
+	top: 57px;
+	left: 5px;
+}
+.status .user_details #saldo_minimal {
+	display: block;
+	
+	width: 120px;
+	height: 21px;
+	position: absolute;
+	top: 57px;
+	left: 130px;
+	
+	border: none;
+	background: #eeeeee;
+}
+
+
+.transactions {
+	height: 253px;
+	overflow: hidden;
+}
+.transactions .transaction {
+	width: 433px;
+	height: 31px;
+	position: relative;
+	margin: 5px 5px 0 5px;
+	background: #dddddd;
+	white-space: nowrap;
+}
+.transactions .transaction.first {
+	margin: 0 5px;
+}
+.transactions .transaction .datetime {
+	width: 125px;
+	height: 21px;
+	line-height: 21px;
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
+.transactions .transaction .datetime .date {
+	font-size: 12px;
+	line-height: 21px;
+}
+.transactions .transaction .amount {
+	width: 25px;
+	height: 21px;
+	position: absolute;
+	top: 5px;
+	left: 130px;
+}
+.transactions .transaction .product {
+	width: 200px;
+	height: 21px;
+	position: absolute;
+	top: 5px;
+	left: 158px;
+	overflow: hidden;
+}
+.transactions .transaction .mutation {
+	width: 70px;
+	height: 21px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	text-align: right;
+}
+
+.update_saldo {
+	margin: 17px 5px 5px 5px;
+	height: 60px;
+	width: 433px;
+	position: relative;
+	color: #637F5E;
+	background: #99F799;
+}
+.update_saldo .pay {
+	display: block;
+	
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	cursor: pointer;
+}

@@ -1,0 +1,13 @@
+{
+    "name": "root/stampot",
+    "description": "Stampot!",
+    "require": {
+        "phpmailer/phpmailer": "~5.2"
+    },
+    "authors": [
+        {
+            "name": "Tristan de Boer",
+            "email": "tristan@natsirt.nl"
+        }
+    ]
+}
