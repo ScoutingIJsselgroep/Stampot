@@ -5,31 +5,31 @@ include_once('include.php');
 switch ($_GET['action']) {
 	case 'fix':
 		$users = array();
-		$user_query = mysql_query("
+		$user_query = mysqli_query($connection, "
 			SELECT *
 			FROM users
 			ORDER BY name, id;
-		") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
-		while($user = mysql_fetch_assoc($user_query)) {
+		");
+		while($user = mysqli_fetch_assoc($user_query)) {
 			$saldo = 0;
-			$transaction_query = mysql_query("
+			$transaction_query = mysqli_query($connection, "
 				SELECT *
 				FROM transactions
 				WHERE user_id = " . (int)$user['id'] . "
 				ORDER BY date ASC;
-			") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);			
-			while($transaction = mysql_fetch_assoc($transaction_query)) {
+			");
+			while($transaction = mysqli_fetch_assoc($transaction_query)) {
 				$before = $saldo;
 				$saldo += $transaction['mutation'];
 				
-				mysql_query("
+				mysqli_query($connection, "
 					UPDATE transactions
 					SET 
 					saldo_before = " . $before . ",
 					saldo_after = " . $saldo . "
 					WHERE id = " . (int) $transaction['id'] . "
 					LIMIT 1
-				") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
+				");
 				
 			}			
 			mysql_query("
@@ -38,7 +38,7 @@ switch ($_GET['action']) {
 				saldo = " . $saldo . "
 				WHERE id = " . (int) $user['id'] . "
 				LIMIT 1
-			") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
+			");
 		}
 		
 		
