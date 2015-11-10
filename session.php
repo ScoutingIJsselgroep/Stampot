@@ -39,10 +39,6 @@ switch ($_GET['action']) {
 				WHERE id = " . (int) $user['id'] . "
 				LIMIT 1
 			") or die('MySQLerror '.mysqli_errno($connection).' : '.mysqli_error($connection).'. In '.__FILE__.' on line '.__LINE__);
-			// Send mail
-			
-			
-			// Tristan
 		}
 		
 		
