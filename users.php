@@ -46,21 +46,21 @@ switch ($_GET['action']) {
 		break;
 	case 'list':
 		$users = array();
-		$user_query = mysql_query("
+		$user_query = mysqli_query($connection, "
 			SELECT *
 			FROM users
 			ORDER BY name, id;
-		") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
-		while($user = mysql_fetch_assoc($user_query)) {
+		");
+		while($user = mysqli_fetch_assoc($user_query)) {
 			$users[$user['id']] = $user;
 			$users[$user['id']]['transactions'] = array();
-			$transaction_query = mysql_query("
+			$transaction_query = mysqli_query($connection, "
 				SELECT *
 				FROM transactions
 				WHERE user_id = " . (int)$user['id'] . "
 				ORDER BY date DESC;
-			") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
-			while($transaction = mysql_fetch_assoc($transaction_query)) {
+			");
+			while($transaction = mysqli_fetch_assoc($transaction_query)) {
 				$users[$user['id']]['transactions'][] = $transaction; 
 			}
 			if(file_exists('img/products/' . $user['id'] . '.png')) {
@@ -71,118 +71,118 @@ switch ($_GET['action']) {
 		die(json_encode(array_values($users)));
 		break;
 	case 'add':
-		mysql_query("
+		mysqli_query($connection, "
 			INSERT INTO users
 			(name, min_saldo)
 			VALUES
 			('" . mysql_real_escape_string($_GET['name']) . "', " . (float)$_GET['min_saldo'] . ")
-		") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
+		");
 		$user_id = mysql_insert_id();
 		
-		$user_query = mysql_query("
+		$user_query = mysqli_query($connection, "
 			SELECT *
 			FROM users
 			WHERE id = " . (int)$user_id . "
 			LIMIT 1;
-		") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
+		");
 		die(json_encode(mysql_fetch_assoc($user_query)));
 		
 		break;
 	case 'save':
-		mysql_query("
+		mysqli_query($connection,"
 			UPDATE users
 			SET
 				name = '" . mysql_real_escape_string($_GET['name']) . "',
 				min_saldo = " . (float)$_GET['min_saldo'] . "
 			WHERE id = " . (int)$_GET['user_id'] . "
 			LIMIT 1
-		") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
+		");
 		
-		$user_query = mysql_query("
+		$user_query = mysqli_query($connection,"
 			SELECT *
 			FROM users
 			WHERE id = " . (int)$_GET['user_id'] . "
 			LIMIT 1;
-		") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
-		die(json_encode(mysql_fetch_assoc($user_query)));
+		");
+		die(json_encode(mysqli_fetch_assoc($user_query)));
 		
 		break;
 	case 'buy_product':
-		$user_query = mysql_query("
+		$user_query = mysqli_query($connection,"
 			SELECT id, saldo
 			FROM users
 			WHERE id = " . (int)$_GET['user_id'] . "
 			LIMIT 1
-		") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
-		$user = mysql_fetch_assoc($user_query);
+		");
+		$user = mysqli_fetch_assoc($user_query);
 		
 		if(!empty($_GET['product_id'])) {
-			$product_query = mysql_query("
+			$product_query = mysqli_query($connection,"
 				SELECT *
 				FROM products
 				WHERE id = " . (int)$_GET['product_id'] . "
 				LIMIT 1
-			") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
-			$product = mysql_fetch_assoc($product_query);
+			");
+			$product = mysqli_fetch_assoc($product_query);
 			
 			$mutation = (int)$_GET['amount'] * $product['price'];
-			mysql_query("
+			mysqli_query($connection, "
 				INSERT INTO transactions
 				(user_id, product_id, amount, description, date, mutation, saldo_before, saldo_after)
 				VALUES
 				(" . $user['id'] . ", " . $product['id'] . ", " . (int)$_GET['amount']. ", '" . $product['name'] . " (" . $product['unit'] . ")', CURRENT_TIMESTAMP, -" . $mutation . ", " . $user['saldo'] . ", " . ($user['saldo']-$mutation) . ")
-			") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
+			");
 			$transaction_id = mysql_insert_id();
 			
-			mysql_query("
+			mysqli_query($connection, "
 				UPDATE users
 				SET saldo = " . ($user['saldo']-$mutation) . "
 				WHERE id = " . (int)$_GET['user_id'] . "
 				LIMIT 1
-			") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
+			");
 		}
-		$transaction_query = mysql_query("
+		$transaction_query = mysqli_query($connection, "
 			SELECT *
 			FROM transactions
 			WHERE id = " . (int)$transaction_id . "
 			LIMIT 1;
-		") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
-		die(json_encode(mysql_fetch_assoc($transaction_query)));
+		");
+		die(json_encode(mysqli_fetch_assoc($transaction_query)));
 		break;
 	case 'pay':
 		$transaction_id = 0;
-		$user_query = mysql_query("
+		$user_query = mysqli_query($connection, "
 			SELECT id, saldo
 			FROM users
 			WHERE id = " . (int)$_GET['user_id'] . "
 			LIMIT 1
-		") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
-		$user = mysql_fetch_assoc($user_query);
+		");
+		$user = mysqli_fetch_assoc($user_query);
 		
 		if((float)$_GET['amount'] != 0) {
 			$mutation = (float)$_GET['amount'];
-			mysql_query("
+			mysql_query($connection, "
 				INSERT INTO transactions
 				(user_id, product_id, amount, description, date, mutation, saldo_before, saldo_after)
 				VALUES
 				(" . $user['id'] . ", NULL, NULL, '" . mysql_real_escape_string($_GET['description']) . "', CURRENT_TIMESTAMP, " . $mutation . ", " . $user['saldo'] . ", " . ($user['saldo']+$mutation) . ")
-			") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
+			");
 			$transaction_id = mysql_insert_id();
 			
-			mysql_query("
+			mysqli_query($connection, "
 				UPDATE users
 				SET saldo = " . ($user['saldo']+$mutation) . "
 				WHERE id = " . (int)$_GET['user_id'] . "
 				LIMIT 1
 			") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
 		}
-		$transaction_query = mysql_query("
+		$transaction_query = mysqli_query($connection, "
 			SELECT *
 			FROM transactions
 			WHERE id = " . (int)$transaction_id . "
 			LIMIT 1;
-		") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
-		die(json_encode(mysql_fetch_assoc($transaction_query)));
+		");
+		die(json_encode(mysqli_fetch_assoc($transaction_query)));
 		break;
 	default:
 		die(json_encode(array('error', 'no valid action')));
