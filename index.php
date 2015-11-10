@@ -1,5 +1,4 @@
 <?php
-//die("Omwille van een verhuizing is de stampot offline gehaald.");
 $no_login_need = 1;
 include_once('include.php');
 
