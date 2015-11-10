@@ -25,10 +25,10 @@ if(!isset($_SESSION['ip'])) {
 }
 
 // verbinden met database
-$connection = mysql_connect('localhost', 'stampotscouting', '78921ea3-2b91-43e1-9623-f063dd39d833', true) or die("Error"  .mysql_errno() . " : " . mysql_error());
-mysql_select_db('stampotscouting-ijsselgroepnl', $connection) or die("Error " .mysql_errno() . " : " . mysql_error());
+$connection = mysqli_connect('localhost', 'stampotscouting', '78921ea3-2b91-43e1-9623-f063dd39d833', 'stampotscouting-ijsselgroepnl') or die("Error" . mysqli_connect_errno() . " : " . mysqli_connect_error());
 
 $path = explode('/', trim(preg_replace('/\?.*$/','',$_SERVER['REQUEST_URI']),'/'));
 
-
-
+if(!isset($_SESSION['login']) && !isset($no_login_need)) {
+	die(json_encode(array('error', 'login')));
+}
