@@ -1,6 +1,6 @@
 <?PHP
-        include_once('include.php');
-        require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+$connection = mysqli_connect('localhost', 'stampotscouting', '78921ea3-2b91-43e1-9623-f063dd39d833', 'stampotscouting-ijsselgroepnl') or die("Error" . mysqli_connect_errno() . " : " . mysqli_connect_error());
+require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
         $user_query = mysql_query("
 			SELECT *
 			FROM users
