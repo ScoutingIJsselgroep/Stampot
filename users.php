@@ -144,30 +144,6 @@ switch ($_GET['action']) {
 				WHERE id = " . (int)$_GET['user_id'] . "
 				LIMIT 1
 			") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
-			
-				/*
-				$user_query = mysql_query("
-				SELECT *
-				FROM users
-				WHERE id = " . (int)$_GET['user_id'] . ";
-				") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
-				while($users = mysql_fetch_assoc($user_query)){
-					if($users['phone'] != null){
-						$url = 'http://include.hosting2go.nl/include.php?url=http://natsirt.nl/Codiad/workspace/Whatsapp-Webhook/index.php';
-						$data = array('key' => '7pjfKP0EbQ179Ynej31EB3eEz2o0I720', 'message' => 'Hoi! Je saldo bij de Stampot op Scouting IJsselgroep is €weinig, neem dus geld mee!' , 'phone' => $users['phone']);
-						$optional_headers = null;
-						$params = array('http' => array(
-										'method' => 'POST',
-										'content' => http_build_query($data)));
-						 
-						if ($optional_headers !== null) {
-							$params['http']['header'] = $optional_headers;
-						}
-						 
-						$ctx = stream_context_create($params);
-						$fp = @fopen($url, 'rb', false, $ctx);
-					}
-				}*/
 		}
 		$transaction_query = mysql_query("
 			SELECT *
