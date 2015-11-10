@@ -1,11 +1,11 @@
 <?PHP
 $connection = mysqli_connect('localhost', 'stampotscouting', '78921ea3-2b91-43e1-9623-f063dd39d833', 'stampotscouting-ijsselgroepnl') or die("Error" . mysqli_connect_errno() . " : " . mysqli_connect_error());
 require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
-        $user_query = mysql_query("
+        $user_query = mysqli_query($connection, "
 			SELECT *
 			FROM users
 		") or die('MySQLerror '.mysql_errno().' : '.mysql_error().'. In '.__FILE__.' on line '.__LINE__);
-		while($user = mysql_fetch_assoc($user_query)){
+		while($user = mysqli_fetch_assoc($user_query)){
 		    if($user['email'] != null){
 		        if($user['saldo'] < 140.00){
 		            $mail             = new PHPMailer();
